@@ -1,12 +1,23 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { LocaleContext } from "../utils/i18n";
+import { Locale, LocaleContext } from "../utils/i18n";
+import React from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <LocaleContext.Provider value="en">
-      <Component {...pageProps} />
-    </LocaleContext.Provider>
-  );
+export default class MyApp extends React.Component<AppProps> {
+  state = { locale: "en" as Locale };
+
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
+      <LocaleContext.Provider
+        value={{ locale: this.state.locale, setLocale: this.setLocale }}
+      >
+        <Component {...pageProps} />
+      </LocaleContext.Provider>
+    );
+  }
+
+  private setLocale = (locale: Locale) => {
+    this.setState({ locale });
+  };
 }
-export default MyApp;

@@ -74,7 +74,7 @@ export default class OrgSearch extends React.Component<{
 
   private timestamp(updatedAt: string) {
     const date = new Date(updatedAt);
-    const formatter = new Intl.DateTimeFormat(this.context, {
+    const formatter = new Intl.DateTimeFormat(this.context.locale, {
       dateStyle: "medium",
       timeStyle: "short",
     });
@@ -82,7 +82,7 @@ export default class OrgSearch extends React.Component<{
   }
 
   private formattedCount(stars: number) {
-    const formatter = new Intl.NumberFormat(this.context);
+    const formatter = new Intl.NumberFormat(this.context.locale);
     return formatter.format(stars);
   }
 }

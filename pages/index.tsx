@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
+import LocalePicker from "../components/LocalePicker";
 import OrgSearch from "../components/OrgSearch";
 import styles from "../styles/Home.module.css";
 
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <img src="/logo.png" alt="Netflix" height={40} />
+          <LocalePicker />
         </div>
       </header>
 

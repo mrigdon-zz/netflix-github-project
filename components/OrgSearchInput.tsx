@@ -27,7 +27,7 @@ export default class OrgSearchInput extends React.Component<{
   private intervalId?: NodeJS.Timer;
 
   private get placeholder() {
-    return label(this.context, "searchForOrgs", {
+    return label(this.context.locale, "searchForOrgs", {
       example: examples[this.state.exampleIndex],
       className: styles.example,
     });

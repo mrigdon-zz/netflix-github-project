@@ -2,7 +2,7 @@ import React from "react";
 import en from "../labels/en.json";
 import es from "../labels/es.json";
 
-type Locale = "en" | "es";
+export type Locale = "en" | "es";
 
 type LabelKey = keyof typeof en;
 
@@ -22,4 +22,7 @@ export function label(
   return value;
 }
 
-export const LocaleContext = React.createContext<Locale>("en");
+export const LocaleContext = React.createContext({
+  locale: "en" as Locale,
+  setLocale(_locale: Locale) {},
+});
