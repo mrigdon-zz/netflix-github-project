@@ -1,7 +1,9 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { setConfig } from "../utils/globalConfig";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  setConfig({ locale: "en" });
+  return <Component {...pageProps} />;
 }
-export default MyApp
+export default MyApp;

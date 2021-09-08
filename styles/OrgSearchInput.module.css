@@ -1,0 +1,44 @@
+.inputContainer {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input:focus + .placeholder,
+.input:not([value=""]) + .placeholder {
+  display: none;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.placeholder {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0.5rem;
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.example {
+  opacity: 0;
+  animation: fadeInOut 3000ms ease;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
