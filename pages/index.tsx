@@ -20,7 +20,19 @@ const Home: NextPage = () => {
 
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <img src="/logo.png" alt="Netflix" height={40} />
+          <div className={styles.nav}>
+            <img
+              className={styles.logo}
+              src="/logo.png"
+              alt="Netflix"
+              height={40}
+            />
+
+            <a href="/" className={styles.navLink}>
+              <Label name="home" />
+            </a>
+          </div>
+
           <LocalePicker />
         </div>
       </header>
