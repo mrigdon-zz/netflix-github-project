@@ -2,10 +2,10 @@ import { label, LabelKey, LocaleContext } from "../utils/i18n";
 
 export default function Label({
   name,
-  ...attrs
+  attrs,
 }: {
   name: LabelKey;
-  [index: string]: string;
+  attrs: { [index: string]: string };
 }) {
   return (
     <LocaleContext.Consumer>

@@ -28,5 +28,8 @@
   },
   "viewAll": {
     "value": "View All"
+  },
+  "commitsFor": {
+    "value": "Commits for %{repo}"
   }
 }

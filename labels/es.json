@@ -28,5 +28,8 @@
   },
   "viewAll": {
     "value": "Ver todo"
+  },
+  "commitsFor": {
+    "value": "Compromisos para %{repo}"
   }
 }
