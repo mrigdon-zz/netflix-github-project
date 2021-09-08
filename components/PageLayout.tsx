@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useState } from "react";
 import Label from "../components/Label";
 import LocalePicker from "../components/LocalePicker";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/PageLayout.module.css";
 import { Locale, LocaleContext } from "../utils/i18n";
 
 export default function PageLayout(props: {
