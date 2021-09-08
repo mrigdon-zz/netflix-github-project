@@ -1,14 +1,16 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import Label from "../components/Label";
 import LocalePicker from "../components/LocalePicker";
 import OrgSearch from "../components/OrgSearch";
 import styles from "../styles/Home.module.css";
+import { Locale, LocaleContext } from "../utils/i18n";
 
-const Home: NextPage = () => {
+const Home: NextPage<{ localeParam: Locale }> = ({ localeParam }) => {
+  const [locale, setLocale] = useState(localeParam);
   return (
-    <>
+    <LocaleContext.Provider value={{ locale, setLocale }}>
       <Head>
         <title>Github Org Repo Explorer</title>
         <meta
@@ -48,8 +50,12 @@ const Home: NextPage = () => {
 
         <OrgSearch />
       </main>
-    </>
+    </LocaleContext.Provider>
   );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => ({
+  props: { localeParam: context.query.locale || "en" },
+});
