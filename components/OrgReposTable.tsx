@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
-import { LocaleContext } from "../utils/i18n";
+import { label, LabelKey, LocaleContext } from "../utils/i18n";
 import TableHeader, { TableHeaderProps } from "./TableHeader";
 
 export interface Repo {
@@ -24,10 +24,10 @@ export default class OrgSearch extends React.Component<{
 
   private get headers(): TableHeaderProps[] {
     return [
-      { id: "repo", label: "📦 Repo" },
-      { id: "stars", label: "⭐️ Stars" },
-      { id: "forks", label: "🍴 Forks" },
-      { id: "updated", label: "✍️ Last Updated" },
+      { id: "repo", label: this.label("repo") },
+      { id: "stars", label: this.label("stars") },
+      { id: "forks", label: this.label("forks") },
+      { id: "updated", label: this.label("lastUpdated") },
     ].map((header) => ({
       ...header,
       sorted: header.id === this.props.sortColumn,
@@ -70,6 +70,10 @@ export default class OrgSearch extends React.Component<{
         </tbody>
       </table>
     );
+  }
+
+  private label(key: LabelKey) {
+    return label(this.context.locale, key);
   }
 
   private timestamp(updatedAt: string) {

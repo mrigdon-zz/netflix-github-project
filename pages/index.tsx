@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
+import Label from "../components/Label";
 import LocalePicker from "../components/LocalePicker";
 import OrgSearch from "../components/OrgSearch";
 import styles from "../styles/Home.module.css";
@@ -25,11 +26,12 @@ const Home: NextPage = () => {
       </header>
 
       <main className={styles.container}>
-        <h1>Welcome to the Github Org Repo Explorer!</h1>
+        <h1>
+          <Label name="welcome" />
+        </h1>
 
         <p className={styles.description}>
-          Search for the name of any Github organization to begin exploring
-          their repos...
+          <Label name="searchDescription" />
         </p>
 
         <OrgSearch />

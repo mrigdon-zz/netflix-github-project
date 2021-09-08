@@ -4,7 +4,7 @@ import es from "../labels/es.json";
 
 export type Locale = "en" | "es";
 
-type LabelKey = keyof typeof en;
+export type LabelKey = keyof typeof en;
 
 const labels = { en, es };
 

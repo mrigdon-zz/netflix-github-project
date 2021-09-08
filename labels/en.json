@@ -1,6 +1,23 @@
 {
   "searchForOrgs": {
-    "value": "🔍 Enter a Github org name like <span class=\"%{className}\">%{example}</span>",
-    "description": "Used by the org search input as the placeholder"
+    "value": "🔍 Enter a Github org name like <span class=\"%{className}\">%{example}</span>"
+  },
+  "welcome": {
+    "value": "Welcome to the Github Org Repo Explorer!"
+  },
+  "searchDescription": {
+    "value": "Search for the name of any Github organization to begin exploring their repos."
+  },
+  "repo": {
+    "value": "📦 Repo"
+  },
+  "stars": {
+    "value": "⭐️ Stars"
+  },
+  "forks": {
+    "value": "🍴 Forks"
+  },
+  "lastUpdated": {
+    "value": "✍️ Last Updated"
   }
 }
