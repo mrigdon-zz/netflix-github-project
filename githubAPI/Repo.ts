@@ -5,4 +5,5 @@ export default interface Repo {
   updated_at: string;
   html_url: string;
   forks_count: number;
+  default_branch: string;
 }

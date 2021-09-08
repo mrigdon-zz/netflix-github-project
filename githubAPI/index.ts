@@ -1,3 +1,4 @@
+import Branch from "./Branch";
 import Commit from "./Commit";
 import Repo from "./Repo";
 
@@ -18,6 +19,10 @@ async function githubFetch<T>(endpoint: string): Promise<APIResponse<T>> {
 
 export function fetchRepos(org: string) {
   return githubFetch<Repo[]>(`orgs/${org}/repos`);
+}
+
+export function fetchBranches(org: string, repo: string) {
+  return githubFetch<Branch[]>(`repos/${org}/${repo}/branches`);
 }
 
 export function fetchCommits(org: string, repo: string) {
