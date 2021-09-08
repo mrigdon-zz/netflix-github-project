@@ -1,0 +1,42 @@
+.header {
+  text-align: left;
+  border: 1px solid black;
+}
+
+.button {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.arrows {
+  position: relative;
+  margin-left: 0.25rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.arrowUp {
+  transform: translateY(-80%);
+}
+
+.arrowDown {
+  transform: translateY(-20%) rotate(180deg);
+}
+
+.header:hover .arrow {
+  opacity: 0.4;
+}
+
+.arrowsVisible.arrowsAsc .arrowUp {
+  opacity: 1;
+}
+
+.arrowsVisible.arrowsDesc .arrowDown {
+  opacity: 1;
+}

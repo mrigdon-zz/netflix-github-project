@@ -1,6 +1,6 @@
 import React from "react";
 import githubFetch from "../utils/githubFetch";
-import OrgReposTable, { Repo } from "./OrgReposTable";
+import OrgReposTable, { ColumnId, Repo } from "./OrgReposTable";
 import OrgSearchInput from "./OrgSearchInput";
 
 export default class OrgSearch extends React.Component {
@@ -8,6 +8,8 @@ export default class OrgSearch extends React.Component {
     repos: [] as Repo[],
     error: undefined as string | undefined,
     loading: false,
+    sortAscending: true,
+    sortColumn: "stars" as ColumnId,
   };
 
   private get success() {
@@ -26,7 +28,14 @@ export default class OrgSearch extends React.Component {
 
         {this.state.error && <p>😕 {this.state.error}</p>}
 
-        {this.success && <OrgReposTable repos={this.state.repos} />}
+        {this.success && (
+          <OrgReposTable
+            repos={this.state.repos}
+            sortAscending={this.state.sortAscending}
+            sortColumn={this.state.sortColumn}
+            onClick={this.handleSort}
+          />
+        )}
       </>
     );
   }
@@ -48,5 +57,13 @@ export default class OrgSearch extends React.Component {
     }
 
     this.setState({ loading: false });
+  };
+
+  private handleSort = (id: ColumnId) => {
+    if (this.state.sortColumn === id) {
+      this.setState({ sortAscending: !this.state.sortAscending });
+    } else {
+      this.setState({ sortAscending: true, sortColumn: id });
+    }
   };
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
+import TableHeader, { TableHeaderProps } from "./TableHeader";
 
 export interface Repo {
   id: number;
@@ -8,17 +9,38 @@ export interface Repo {
   updated_at: string;
 }
 
-export default class OrgSearch extends React.Component<{ repos: Repo[] }> {
+export type ColumnId = "repo" | "stars" | "updated";
+
+export default class OrgSearch extends React.Component<{
+  repos: Repo[];
+  sortAscending: boolean;
+  sortColumn: ColumnId;
+  onClick(id: ColumnId): void;
+}> {
+  private get headers(): TableHeaderProps[] {
+    return [
+      { id: "repo", label: "Repo" },
+      { id: "stars", label: "Stars" },
+      { id: "updated", label: "Last Updated" },
+    ].map((header) => ({
+      ...header,
+      sorted: header.id === this.props.sortColumn,
+      ascending: this.props.sortAscending,
+      onClick: this.props.onClick,
+    }));
+  }
+
   render() {
     return (
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.cell}>Repo</th>
-            <th className={styles.cell}>Stars</th>
-            <th className={styles.cell}>Last Updated</th>
+            {this.headers.map((header) => (
+              <TableHeader key={header.id} {...header} />
+            ))}
           </tr>
         </thead>
+
         <tbody>
           {this.props.repos.map((repo) => (
             <tr key={repo.id}>
