@@ -6,10 +6,12 @@ import PageLayout from "../components/PageLayout";
 import styles from "../styles/Home.module.css";
 import { Locale } from "../utils/i18n";
 
-const Home: NextPage<{ locale: Locale; search: string }> = ({
-  locale,
-  search,
-}) => {
+const Home: NextPage<{
+  locale: Locale;
+  search: string;
+  ascending: boolean;
+  column: string;
+}> = ({ locale, search, ascending, column }) => {
   return (
     <PageLayout locale={locale}>
       <h1>
@@ -20,7 +22,7 @@ const Home: NextPage<{ locale: Locale; search: string }> = ({
         <Label name="searchDescription" />
       </p>
 
-      <OrgSearch search={search} />
+      <OrgSearch search={search} ascending={ascending} column={column} />
     </PageLayout>
   );
 };
@@ -31,5 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => ({
   props: {
     locale: context.query.locale || "en",
     search: context.query.search || "",
+    ascending: Boolean(context.query.ascending),
+    column: context.query.column || "stars",
   },
 });

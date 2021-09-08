@@ -4,13 +4,17 @@ import { setParam } from "../utils/urlParams";
 import OrgReposTable, { ColumnId, Repo } from "./OrgReposTable";
 import OrgSearchInput from "./OrgSearchInput";
 
-export default class OrgSearch extends React.Component<{ search: string }> {
+export default class OrgSearch extends React.Component<{
+  search: string;
+  ascending: boolean;
+  column: ColumnId;
+}> {
   state = {
     repos: [] as Repo[],
     error: undefined as string | undefined,
     loading: false,
-    sortAscending: false,
-    sortColumn: "stars" as ColumnId,
+    sortAscending: this.props.ascending,
+    sortColumn: this.props.column,
   };
 
   private get success() {
@@ -94,9 +98,12 @@ export default class OrgSearch extends React.Component<{ search: string }> {
 
   private handleSort = (id: ColumnId) => {
     if (this.state.sortColumn === id) {
-      this.setState({ sortAscending: !this.state.sortAscending });
+      const sortAscending = !this.state.sortAscending;
+      this.setState({ sortAscending });
+      setParam("ascending", sortAscending);
     } else {
       this.setState({ sortColumn: id });
+      setParam("column", id);
     }
   };
 }

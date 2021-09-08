@@ -1,8 +1,8 @@
-export function setParam(name: string, value?: string) {
+export function setParam(name: string, value?: string | boolean) {
   const params = new URLSearchParams(window.location.search);
 
   if (value) {
-    params.set(name, value);
+    params.set(name, value.toString());
   } else {
     params.delete(name);
   }
