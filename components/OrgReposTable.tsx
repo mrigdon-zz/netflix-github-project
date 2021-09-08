@@ -8,6 +8,7 @@ export interface Repo {
   name: string;
   stargazers_count: number;
   updated_at: string;
+  html_url: string;
 }
 
 export type ColumnId = "repo" | "stars" | "updated";
@@ -45,8 +46,16 @@ export default class OrgSearch extends React.Component<{
         <tbody>
           {this.props.repos.map((repo) => (
             <tr key={repo.id}>
-              <td className={styles.cell}>{repo.name}</td>
-              <td className={styles.cell}>{repo.stargazers_count}</td>
+              <td className={styles.cell}>
+                <a href={repo.html_url} target="_blank" rel="noopener">
+                  {repo.name}
+                </a>
+              </td>
+
+              <td className={styles.cell}>
+                {this.formattedStars(repo.stargazers_count)}
+              </td>
+
               <td className={styles.cell}>{this.timestamp(repo.updated_at)}</td>
             </tr>
           ))}
@@ -62,5 +71,10 @@ export default class OrgSearch extends React.Component<{
       timeStyle: "short",
     });
     return formatter.format(date);
+  }
+
+  private formattedStars(stars: number) {
+    const formatter = new Intl.NumberFormat(getConfig().locale);
+    return formatter.format(stars);
   }
 }
