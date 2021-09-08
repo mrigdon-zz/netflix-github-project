@@ -9,9 +9,10 @@ export interface Repo {
   stargazers_count: number;
   updated_at: string;
   html_url: string;
+  forks_count: number;
 }
 
-export type ColumnId = "repo" | "stars" | "updated";
+export type ColumnId = "repo" | "stars" | "forks" | "updated";
 
 export default class OrgSearch extends React.Component<{
   repos: Repo[];
@@ -23,6 +24,7 @@ export default class OrgSearch extends React.Component<{
     return [
       { id: "repo", label: "📦 Repo" },
       { id: "stars", label: "⭐️ Stars" },
+      { id: "forks", label: "🍴 Forks" },
       { id: "updated", label: "✍️ Last Updated" },
     ].map((header) => ({
       ...header,
@@ -53,7 +55,11 @@ export default class OrgSearch extends React.Component<{
               </td>
 
               <td className={styles.cell}>
-                {this.formattedStars(repo.stargazers_count)}
+                {this.formattedCount(repo.stargazers_count)}
+              </td>
+
+              <td className={styles.cell}>
+                {this.formattedCount(repo.forks_count)}
               </td>
 
               <td className={styles.cell}>{this.timestamp(repo.updated_at)}</td>
@@ -73,7 +79,7 @@ export default class OrgSearch extends React.Component<{
     return formatter.format(date);
   }
 
-  private formattedStars(stars: number) {
+  private formattedCount(stars: number) {
     const formatter = new Intl.NumberFormat(getConfig().locale);
     return formatter.format(stars);
   }

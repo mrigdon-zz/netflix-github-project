@@ -24,13 +24,15 @@ export default class OrgSearch extends React.Component {
         return this.repoSorter;
       case "stars":
         return this.starsSorter;
+      case "forks":
+        return this.forksSorter;
       case "updated":
         return this.updatedSorter;
     }
   }
 
   private get sortedRepos(): Repo[] {
-    return this.state.repos.sort(this.sorter);
+    return this.state.repos.slice().sort(this.sorter);
   }
 
   private get sortMultipler() {
@@ -87,27 +89,27 @@ export default class OrgSearch extends React.Component {
   };
 
   private repoSorter = (a: Repo, b: Repo) => {
-    const aName = a.name.toLowerCase();
-    const bName = b.name.toLowerCase();
-
-    if (aName < bName) return -this.sortMultipler;
-    if (aName > bName) return this.sortMultipler;
-
-    return 0;
+    return this.sortBy(a, b, (repo) => repo.name.toLowerCase());
   };
 
   private starsSorter = (a: Repo, b: Repo) => {
-    if (a.stargazers_count < b.stargazers_count) return -this.sortMultipler;
-    if (a.stargazers_count > b.stargazers_count) return this.sortMultipler;
-    return 0;
+    return this.sortBy(a, b, (repo) => repo.stargazers_count);
+  };
+
+  private forksSorter = (a: Repo, b: Repo) => {
+    return this.sortBy(a, b, (repo) => repo.forks_count);
   };
 
   private updatedSorter = (a: Repo, b: Repo) => {
-    const aUpdated = new Date(a.updated_at);
-    const bUpdated = new Date(b.updated_at);
+    return this.sortBy(a, b, (repo) => new Date(repo.updated_at));
+  };
 
-    if (aUpdated < bUpdated) return -this.sortMultipler;
-    if (aUpdated > bUpdated) return this.sortMultipler;
+  private sortBy = (a: Repo, b: Repo, transformer: (repo: Repo) => any) => {
+    const valueA = transformer(a);
+    const valueB = transformer(b);
+
+    if (valueA < valueB) return -this.sortMultipler;
+    if (valueA > valueB) return this.sortMultipler;
 
     return 0;
   };
