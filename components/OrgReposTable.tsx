@@ -4,16 +4,8 @@ import classNames from "../utils/classNames";
 import { HomeContext } from "../utils/homeContext";
 import { label, LocaleContext } from "../utils/i18n";
 import Label from "./Label";
+import Repo from "../api/Repo";
 import TableHeader from "./TableHeader";
-
-export interface Repo {
-  id: number;
-  name: string;
-  stargazers_count: number;
-  updated_at: string;
-  html_url: string;
-  forks_count: number;
-}
 
 export type ColumnId = "repo" | "stars" | "forks" | "updated" | "commits";
 

@@ -2,7 +2,9 @@ import { GetServerSideProps, NextPage } from "next";
 import React from "react";
 import Label from "../../../../components/Label";
 import PageLayout from "../../../../components/PageLayout";
+import { APIResponse, fetchCommits } from "../../../../api";
 import { Locale } from "../../../../utils/i18n";
+import Commit from "../../../../api/Commit";
 
 export const RepoDetailContext = React.createContext<{
   org: string;
@@ -13,7 +15,9 @@ const RepoDetail: NextPage<{
   locale: Locale;
   org: string;
   repo: string;
-}> = ({ locale, repo, org }) => {
+  response: APIResponse<Commit[]>;
+}> = ({ locale, repo, org, response }) => {
+  console.log(response.data);
   return (
     <RepoDetailContext.Provider value={{ org, repo }}>
       <PageLayout locale={locale}>
@@ -28,10 +32,15 @@ const RepoDetail: NextPage<{
 export default RepoDetail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { org, repo } = context.query;
+
+  const response = await fetchCommits(org as string, repo as string);
+
   return {
     props: {
-      org: context.query.org,
-      repo: context.query.repo,
+      org,
+      repo,
+      response,
       locale: context.query.locale || "en",
     },
   };

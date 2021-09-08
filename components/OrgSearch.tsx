@@ -1,7 +1,8 @@
 import React from "react";
-import githubFetch from "../utils/githubFetch";
+import { fetchRepos } from "../api";
 import { HomeContext } from "../utils/homeContext";
-import OrgReposTable, { ColumnId, Repo } from "./OrgReposTable";
+import OrgReposTable, { ColumnId } from "./OrgReposTable";
+import Repo from "../api/Repo";
 import OrgSearchInput from "./OrgSearchInput";
 
 export default class OrgSearch extends React.Component {
@@ -78,7 +79,7 @@ export default class OrgSearch extends React.Component {
       return;
     }
 
-    const { data, error } = await githubFetch<Repo[]>(`orgs/${text}/repos`);
+    const { data, error } = await fetchRepos(text);
 
     if (data) {
       this.setState({ repos: data });
