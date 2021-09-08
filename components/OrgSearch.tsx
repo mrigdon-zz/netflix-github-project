@@ -1,20 +1,16 @@
 import React from "react";
 import githubFetch from "../utils/githubFetch";
-import { setParam } from "../utils/urlParams";
+import { HomeContext } from "../utils/homeContext";
 import OrgReposTable, { ColumnId, Repo } from "./OrgReposTable";
 import OrgSearchInput from "./OrgSearchInput";
 
-export default class OrgSearch extends React.Component<{
-  search: string;
-  ascending: boolean;
-  column: ColumnId;
-}> {
+export default class OrgSearch extends React.Component {
+  static contextType = HomeContext;
+
   state = {
     repos: [] as Repo[],
     error: undefined as string | undefined,
     loading: false,
-    sortAscending: this.props.ascending,
-    sortColumn: this.props.column,
   };
 
   private get success() {
@@ -24,7 +20,7 @@ export default class OrgSearch extends React.Component<{
   }
 
   private get sortTransform() {
-    switch (this.state.sortColumn) {
+    switch (this.context.params.column) {
       case "repo":
         return (repo: Repo) => repo.name.toLowerCase();
       case "stars":
@@ -49,7 +45,7 @@ export default class OrgSearch extends React.Component<{
       if (valueA < valueB) result = 1;
       else if (valueA > valueB) result = -1;
 
-      if (this.state.sortAscending) result *= -1;
+      if (this.context.params.ascending) result *= -1;
 
       return result;
     });
@@ -59,7 +55,7 @@ export default class OrgSearch extends React.Component<{
     return (
       <>
         <OrgSearchInput
-          search={this.props.search}
+          search={this.context.params.search}
           loading={this.state.loading}
           onSearch={this.handleSearch}
         />
@@ -67,19 +63,14 @@ export default class OrgSearch extends React.Component<{
         {this.state.error && <p>😕 {this.state.error}</p>}
 
         {this.success && (
-          <OrgReposTable
-            repos={this.sortedRepos}
-            sortAscending={this.state.sortAscending}
-            sortColumn={this.state.sortColumn}
-            onClick={this.handleSort}
-          />
+          <OrgReposTable repos={this.sortedRepos} onClick={this.handleSort} />
         )}
       </>
     );
   }
 
   private handleSearch = async (text: string) => {
-    setParam("search", text);
+    this.context.setParams({ search: text });
     this.setState({ error: undefined, loading: true });
 
     if (!text) {
@@ -99,13 +90,10 @@ export default class OrgSearch extends React.Component<{
   };
 
   private handleSort = (id: ColumnId) => {
-    if (this.state.sortColumn === id) {
-      const sortAscending = !this.state.sortAscending;
-      this.setState({ sortAscending });
-      setParam("ascending", sortAscending);
+    if (this.context.params.column === id) {
+      this.context.setParams({ ascending: !this.context.params.ascending });
     } else {
-      this.setState({ sortColumn: id });
-      setParam("column", id);
+      this.context.setParams({ column: id });
     }
   };
 }

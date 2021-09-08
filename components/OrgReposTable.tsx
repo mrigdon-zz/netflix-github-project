@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
 import classNames from "../utils/classNames";
-import { label, LabelKey, LocaleContext } from "../utils/i18n";
+import { HomeContext } from "../utils/homeContext";
+import { label, LocaleContext } from "../utils/i18n";
 import Label from "./Label";
-import TableHeader, { TableHeaderProps } from "./TableHeader";
+import TableHeader from "./TableHeader";
 
 export interface Repo {
   id: number;
@@ -16,88 +17,80 @@ export interface Repo {
 
 export type ColumnId = "repo" | "stars" | "forks" | "updated" | "commits";
 
-export default class OrgSearch extends React.Component<{
+export default function OrgSearch({
+  repos,
+  onClick,
+}: {
   repos: Repo[];
-  sortAscending: boolean;
-  sortColumn: ColumnId;
   onClick(id: ColumnId): void;
-}> {
-  static contextType = LocaleContext;
+}) {
+  const { locale } = React.useContext(LocaleContext);
+  const { params } = React.useContext(HomeContext);
 
-  private get headers(): TableHeaderProps[] {
-    return [
-      { id: "repo", label: this.label("repo") },
-      { id: "stars", label: this.label("stars") },
-      { id: "forks", label: this.label("forks") },
-      { id: "updated", label: this.label("lastUpdated") },
-      { id: "commits", label: this.label("commits"), unsortable: true },
-    ].map((header) => ({
-      ...header,
-      sorted: header.id === this.props.sortColumn,
-      ascending: this.props.sortAscending,
-      onClick: this.props.onClick,
-    }));
-  }
-
-  render() {
-    return (
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            {this.headers.map((header) => (
-              <TableHeader key={header.id} {...header} />
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {this.props.repos.map((repo) => (
-            <tr key={repo.id}>
-              <td className={styles.cell}>
-                <a href={repo.html_url} target="_blank" rel="noopener">
-                  {repo.name}
-                </a>
-              </td>
-
-              <td className={styles.cell}>
-                {this.formattedCount(repo.stargazers_count)}
-              </td>
-
-              <td className={styles.cell}>
-                {this.formattedCount(repo.forks_count)}
-              </td>
-
-              <td className={styles.cell}>{this.timestamp(repo.updated_at)}</td>
-
-              <td className={classNames(styles.cell, styles.viewAll)}>
-                <a
-                  href={`/orgs/${'foo'}/repos/${repo.name}?locale=${this.context.locale}`}
-                >
-                  <Label name="viewAll" />
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-
-  private label(key: LabelKey) {
-    return label(this.context.locale, key);
-  }
-
-  private timestamp(updatedAt: string) {
+  function timestamp(updatedAt: string) {
     const date = new Date(updatedAt);
-    const formatter = new Intl.DateTimeFormat(this.context.locale, {
+    const formatter = new Intl.DateTimeFormat(locale, {
       dateStyle: "medium",
       timeStyle: "short",
     });
     return formatter.format(date);
   }
 
-  private formattedCount(stars: number) {
-    const formatter = new Intl.NumberFormat(this.context.locale);
+  function formattedCount(stars: number) {
+    const formatter = new Intl.NumberFormat(locale);
     return formatter.format(stars);
   }
+
+  const headers = [
+    { id: "repo", label: label(locale, "repo") },
+    { id: "stars", label: label(locale, "stars") },
+    { id: "forks", label: label(locale, "forks") },
+    { id: "updated", label: label(locale, "lastUpdated") },
+    { id: "commits", label: label(locale, "commits"), unsortable: true },
+  ].map((header) => ({
+    ...header,
+    sorted: header.id === params.column,
+    ascending: params.ascending,
+    onClick,
+  }));
+
+  return (
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          {headers.map((header) => (
+            <TableHeader key={header.id} {...header} />
+          ))}
+        </tr>
+      </thead>
+
+      <tbody>
+        {repos.map((repo) => (
+          <tr key={repo.id}>
+            <td className={styles.cell}>
+              <a href={repo.html_url} target="_blank" rel="noopener">
+                {repo.name}
+              </a>
+            </td>
+
+            <td className={styles.cell}>
+              {formattedCount(repo.stargazers_count)}
+            </td>
+
+            <td className={styles.cell}>{formattedCount(repo.forks_count)}</td>
+
+            <td className={styles.cell}>{timestamp(repo.updated_at)}</td>
+
+            <td className={classNames(styles.cell, styles.viewAll)}>
+              <a
+                href={`/orgs/${params.search}/repos/${repo.name}?locale=${locale}`}
+              >
+                <Label name="viewAll" />
+              </a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
