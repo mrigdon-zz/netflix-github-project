@@ -1,6 +1,6 @@
 {
   "searchForOrgs": {
-    "value": "Enter a Github org name like <span class=\"%{className}\">%{example}</span>",
+    "value": "🔍 Enter a Github org name like <span class=\"%{className}\">%{example}</span>",
     "description": "Used by the org search input as the placeholder"
   }
 }

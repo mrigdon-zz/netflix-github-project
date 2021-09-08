@@ -17,6 +17,7 @@ const examples = [
 ];
 
 export default class OrgSearchInput extends React.Component<{
+  loading?: boolean;
   onSearch(text: string): void;
 }> {
   state = { exampleIndex: 0, searchText: "" };
@@ -48,10 +49,13 @@ export default class OrgSearchInput extends React.Component<{
           value={this.state.searchText}
           onChange={this.handleChangeSearch}
         />
+
         <span
           className={styles.placeholder}
           dangerouslySetInnerHTML={{ __html: placeholder }}
         ></span>
+
+        {this.props.loading && <span className={styles.spinner}>⚙︎</span>}
       </div>
     );
   }

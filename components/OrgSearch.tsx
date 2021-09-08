@@ -19,7 +19,10 @@ export default class OrgSearch extends React.Component {
   render() {
     return (
       <>
-        <OrgSearchInput onSearch={this.handleSearch} />
+        <OrgSearchInput
+          loading={this.state.loading}
+          onSearch={this.handleSearch}
+        />
 
         {this.state.error && <p>😕 {this.state.error}</p>}
 
@@ -32,7 +35,7 @@ export default class OrgSearch extends React.Component {
     this.setState({ error: undefined, loading: true });
 
     if (!text) {
-      this.setState({ repos: [] });
+      this.setState({ repos: [], loading: false });
       return;
     }
 

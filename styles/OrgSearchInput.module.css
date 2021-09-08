@@ -28,6 +28,15 @@
   animation: fadeInOut 3000ms ease;
 }
 
+.spinner {
+  position: absolute;
+  animation: rotate 2000ms infinite linear;
+  top: 3px;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  color: darkgray;
+}
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -40,5 +49,14 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }
