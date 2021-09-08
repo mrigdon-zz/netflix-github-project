@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
-import { getConfig } from "../utils/globalConfig";
+import { LocaleContext } from "../utils/i18n";
 import TableHeader, { TableHeaderProps } from "./TableHeader";
 
 export interface Repo {
@@ -20,6 +20,8 @@ export default class OrgSearch extends React.Component<{
   sortColumn: ColumnId;
   onClick(id: ColumnId): void;
 }> {
+  static contextType = LocaleContext;
+
   private get headers(): TableHeaderProps[] {
     return [
       { id: "repo", label: "📦 Repo" },
@@ -72,7 +74,7 @@ export default class OrgSearch extends React.Component<{
 
   private timestamp(updatedAt: string) {
     const date = new Date(updatedAt);
-    const formatter = new Intl.DateTimeFormat(getConfig().locale, {
+    const formatter = new Intl.DateTimeFormat(this.context, {
       dateStyle: "medium",
       timeStyle: "short",
     });
@@ -80,7 +82,7 @@ export default class OrgSearch extends React.Component<{
   }
 
   private formattedCount(stars: number) {
-    const formatter = new Intl.NumberFormat(getConfig().locale);
+    const formatter = new Intl.NumberFormat(this.context);
     return formatter.format(stars);
   }
 }

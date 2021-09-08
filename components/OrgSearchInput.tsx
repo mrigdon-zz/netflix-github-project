@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import styles from "../styles/OrgSearchInput.module.css";
 import debounce from "../utils/debounce";
-import { label } from "../utils/i18n";
+import { label, LocaleContext } from "../utils/i18n";
 
 const examples = [
   "netflix",
@@ -20,12 +20,14 @@ export default class OrgSearchInput extends React.Component<{
   loading?: boolean;
   onSearch(text: string): void;
 }> {
+  static contextType = LocaleContext;
+
   state = { exampleIndex: 0, searchText: "" };
 
   private intervalId?: NodeJS.Timer;
 
   private get placeholder() {
-    return label("searchForOrgs", {
+    return label(this.context, "searchForOrgs", {
       example: examples[this.state.exampleIndex],
       className: styles.example,
     });

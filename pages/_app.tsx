@@ -1,9 +1,12 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { setConfig } from "../utils/globalConfig";
+import { LocaleContext } from "../utils/i18n";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  setConfig({ locale: "en" });
-  return <Component {...pageProps} />;
+  return (
+    <LocaleContext.Provider value="en">
+      <Component {...pageProps} />
+    </LocaleContext.Provider>
+  );
 }
 export default MyApp;
