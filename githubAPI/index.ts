@@ -21,6 +21,10 @@ export function fetchRepos(org: string) {
   return githubFetch<Repo[]>(`orgs/${org}/repos`);
 }
 
+export function fetchRepo(org: string, repo: string) {
+  return githubFetch<Repo>(`repos/${org}/${repo}`);
+}
+
 export function fetchBranches(org: string, repo: string) {
   return githubFetch<Branch[]>(`repos/${org}/${repo}/branches`);
 }

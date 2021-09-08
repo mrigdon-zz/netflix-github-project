@@ -2,29 +2,26 @@ import { GetServerSideProps, NextPage } from "next";
 import React, { useState } from "react";
 import Label from "../../../../components/Label";
 import PageLayout from "../../../../components/PageLayout";
-import { APIResponse, fetchCommits } from "../../../../githubAPI";
+import { fetchRepo } from "../../../../githubAPI";
 import { Locale } from "../../../../utils/i18n";
-import Commit from "../../../../githubAPI/Commit";
 import { setParam } from "../../../../utils/urlParams";
 import BranchSelect from "../../../../components/BranchSelect";
 import {
   RepoDetailContext,
   RepoDetailParams,
 } from "../../../../utils/repoDetailContext";
+import styles from "../../../../styles/RepoDetail.module.css";
 
 const RepoDetail: NextPage<{
   locale: Locale;
   params: RepoDetailParams;
-  response: APIResponse<Commit[]>;
-}> = ({ locale, params, response }) => {
+}> = ({ locale, params }) => {
   const [state, setState] = useState(params);
 
   const setParams = (detailParams: RepoDetailParams) => {
-    setState(detailParams);
+    setState({ ...state, ...detailParams });
     setParam("branch", detailParams.branch);
   };
-
-  console.log(response.data);
 
   return (
     <RepoDetailContext.Provider value={{ params: state, setParams }}>
@@ -33,7 +30,9 @@ const RepoDetail: NextPage<{
           <Label name="commitsFor" attrs={{ repo: params.repo }}></Label>
         </h1>
 
-        <BranchSelect />
+        <div className={styles.select}>
+          <BranchSelect />
+        </div>
       </PageLayout>
     </RepoDetailContext.Provider>
   );
@@ -42,15 +41,18 @@ const RepoDetail: NextPage<{
 export default RepoDetail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { org, repo } = context.query;
+  const { org, repo, branch } = context.query;
 
-  const response = await fetchCommits(org as string, repo as string);
+  const { data } = await fetchRepo(org as string, repo as string);
 
   return {
     props: {
-      response,
       locale: context.query.locale || "en",
-      params: { org, repo },
+      params: {
+        org,
+        repo,
+        branch: branch || data?.default_branch || "",
+      },
     },
   };
 };
