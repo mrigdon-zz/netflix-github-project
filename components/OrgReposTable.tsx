@@ -19,9 +19,9 @@ export default class OrgSearch extends React.Component<{
 }> {
   private get headers(): TableHeaderProps[] {
     return [
-      { id: "repo", label: "Repo" },
-      { id: "stars", label: "Stars" },
-      { id: "updated", label: "Last Updated" },
+      { id: "repo", label: "📦 Repo" },
+      { id: "stars", label: "⭐️ Stars" },
+      { id: "updated", label: "✍️ Last Updated" },
     ].map((header) => ({
       ...header,
       sorted: header.id === this.props.sortColumn,
