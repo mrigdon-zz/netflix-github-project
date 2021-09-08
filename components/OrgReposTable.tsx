@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
+import { getConfig } from "../utils/globalConfig";
 import TableHeader, { TableHeaderProps } from "./TableHeader";
 
 export interface Repo {
@@ -46,11 +47,20 @@ export default class OrgSearch extends React.Component<{
             <tr key={repo.id}>
               <td className={styles.cell}>{repo.name}</td>
               <td className={styles.cell}>{repo.stargazers_count}</td>
-              <td className={styles.cell}>{repo.updated_at}</td>
+              <td className={styles.cell}>{this.timestamp(repo.updated_at)}</td>
             </tr>
           ))}
         </tbody>
       </table>
     );
+  }
+
+  private timestamp(updatedAt: string) {
+    const date = new Date(updatedAt);
+    const formatter = new Intl.DateTimeFormat(getConfig().locale, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+    return formatter.format(date);
   }
 }

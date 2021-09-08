@@ -8,7 +8,7 @@ export default class OrgSearch extends React.Component {
     repos: [] as Repo[],
     error: undefined as string | undefined,
     loading: false,
-    sortAscending: true,
+    sortAscending: false,
     sortColumn: "stars" as ColumnId,
   };
 
@@ -16,6 +16,25 @@ export default class OrgSearch extends React.Component {
     return (
       !this.state.error && !this.state.loading && this.state.repos.length > 0
     );
+  }
+
+  private get sorter() {
+    switch (this.state.sortColumn) {
+      case "repo":
+        return this.repoSorter;
+      case "stars":
+        return this.starsSorter;
+      case "updated":
+        return this.updatedSorter;
+    }
+  }
+
+  private get sortedRepos(): Repo[] {
+    return this.state.repos.sort(this.sorter);
+  }
+
+  private get sortMultipler() {
+    return this.state.sortAscending ? 1 : -1;
   }
 
   render() {
@@ -30,7 +49,7 @@ export default class OrgSearch extends React.Component {
 
         {this.success && (
           <OrgReposTable
-            repos={this.state.repos}
+            repos={this.sortedRepos}
             sortAscending={this.state.sortAscending}
             sortColumn={this.state.sortColumn}
             onClick={this.handleSort}
@@ -63,7 +82,33 @@ export default class OrgSearch extends React.Component {
     if (this.state.sortColumn === id) {
       this.setState({ sortAscending: !this.state.sortAscending });
     } else {
-      this.setState({ sortAscending: true, sortColumn: id });
+      this.setState({ sortColumn: id });
     }
+  };
+
+  private repoSorter = (a: Repo, b: Repo) => {
+    const aName = a.name.toLowerCase();
+    const bName = b.name.toLowerCase();
+
+    if (aName < bName) return -this.sortMultipler;
+    if (aName > bName) return this.sortMultipler;
+
+    return 0;
+  };
+
+  private starsSorter = (a: Repo, b: Repo) => {
+    if (a.stargazers_count < b.stargazers_count) return -this.sortMultipler;
+    if (a.stargazers_count > b.stargazers_count) return this.sortMultipler;
+    return 0;
+  };
+
+  private updatedSorter = (a: Repo, b: Repo) => {
+    const aUpdated = new Date(a.updated_at);
+    const bUpdated = new Date(b.updated_at);
+
+    if (aUpdated < bUpdated) return -this.sortMultipler;
+    if (aUpdated > bUpdated) return this.sortMultipler;
+
+    return 0;
   };
 }
