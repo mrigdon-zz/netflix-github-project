@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import React from "react";
 import Label from "../components/Label";
+import { ColumnId } from "../components/OrgReposTable";
 import OrgSearch from "../components/OrgSearch";
 import PageLayout from "../components/PageLayout";
 import styles from "../styles/Home.module.css";
@@ -10,7 +11,7 @@ const Home: NextPage<{
   locale: Locale;
   search: string;
   ascending: boolean;
-  column: string;
+  column: ColumnId;
 }> = ({ locale, search, ascending, column }) => {
   return (
     <PageLayout locale={locale}>
