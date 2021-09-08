@@ -1,4 +1,5 @@
 import { Locale, LocaleContext } from "../utils/i18n";
+import { setParam } from "../utils/urlParams";
 
 const options: { value: Locale; label: string }[] = [
   { value: "en", label: "English" },
@@ -11,7 +12,10 @@ export default function LocalePicker() {
       {({ locale, setLocale }) => (
         <select
           value={locale}
-          onChange={(e) => setLocale(e.target.value as Locale)}
+          onChange={(e) => {
+            setLocale(e.target.value as Locale);
+            setParam("locale", e.target.value);
+          }}
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>

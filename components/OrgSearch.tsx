@@ -1,9 +1,10 @@
 import React from "react";
 import githubFetch from "../utils/githubFetch";
+import { setParam } from "../utils/urlParams";
 import OrgReposTable, { ColumnId, Repo } from "./OrgReposTable";
 import OrgSearchInput from "./OrgSearchInput";
 
-export default class OrgSearch extends React.Component {
+export default class OrgSearch extends React.Component<{ search: string }> {
   state = {
     repos: [] as Repo[],
     error: undefined as string | undefined,
@@ -52,6 +53,7 @@ export default class OrgSearch extends React.Component {
     return (
       <>
         <OrgSearchInput
+          search={this.props.search}
           loading={this.state.loading}
           onSearch={this.handleSearch}
         />
@@ -71,6 +73,7 @@ export default class OrgSearch extends React.Component {
   }
 
   private handleSearch = async (text: string) => {
+    setParam("search", text);
     this.setState({ error: undefined, loading: true });
 
     if (!text) {

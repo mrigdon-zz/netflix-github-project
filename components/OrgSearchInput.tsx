@@ -17,12 +17,13 @@ const examples = [
 ];
 
 export default class OrgSearchInput extends React.Component<{
+  search: string;
   loading?: boolean;
   onSearch(text: string): void;
 }> {
   static contextType = LocaleContext;
 
-  state = { exampleIndex: 0, searchText: "" };
+  state = { exampleIndex: 0, searchText: this.props.search };
 
   private intervalId?: NodeJS.Timer;
 
@@ -35,6 +36,7 @@ export default class OrgSearchInput extends React.Component<{
 
   componentDidMount() {
     this.setExampleInterval();
+    if (this.props.search) this.props.onSearch(this.props.search);
   }
 
   componentWillUnmount() {

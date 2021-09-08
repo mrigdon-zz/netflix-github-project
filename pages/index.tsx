@@ -6,7 +6,10 @@ import PageLayout from "../components/PageLayout";
 import styles from "../styles/Home.module.css";
 import { Locale } from "../utils/i18n";
 
-const Home: NextPage<{ locale: Locale }> = ({ locale }) => {
+const Home: NextPage<{ locale: Locale; search: string }> = ({
+  locale,
+  search,
+}) => {
   return (
     <PageLayout locale={locale}>
       <h1>
@@ -17,7 +20,7 @@ const Home: NextPage<{ locale: Locale }> = ({ locale }) => {
         <Label name="searchDescription" />
       </p>
 
-      <OrgSearch />
+      <OrgSearch search={search} />
     </PageLayout>
   );
 };
@@ -25,5 +28,8 @@ const Home: NextPage<{ locale: Locale }> = ({ locale }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => ({
-  props: { locale: context.query.locale || "en" },
+  props: {
+    locale: context.query.locale || "en",
+    search: context.query.search || "",
+  },
 });
