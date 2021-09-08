@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
+import classNames from "../utils/classNames";
 import { label, LabelKey, LocaleContext } from "../utils/i18n";
+import Label from "./Label";
 import TableHeader, { TableHeaderProps } from "./TableHeader";
 
 export interface Repo {
@@ -12,7 +14,7 @@ export interface Repo {
   forks_count: number;
 }
 
-export type ColumnId = "repo" | "stars" | "forks" | "updated";
+export type ColumnId = "repo" | "stars" | "forks" | "updated" | "commits";
 
 export default class OrgSearch extends React.Component<{
   repos: Repo[];
@@ -28,6 +30,7 @@ export default class OrgSearch extends React.Component<{
       { id: "stars", label: this.label("stars") },
       { id: "forks", label: this.label("forks") },
       { id: "updated", label: this.label("lastUpdated") },
+      { id: "commits", label: this.label("commits"), unsortable: true },
     ].map((header) => ({
       ...header,
       sorted: header.id === this.props.sortColumn,
@@ -65,6 +68,12 @@ export default class OrgSearch extends React.Component<{
               </td>
 
               <td className={styles.cell}>{this.timestamp(repo.updated_at)}</td>
+
+              <td className={classNames(styles.cell, styles.viewAll)}>
+                <a href={`/repos/${repo.name}`}>
+                  <Label name="viewAll" />
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>

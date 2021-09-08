@@ -6,6 +6,7 @@ export interface TableHeaderProps {
   label: string;
   sorted: boolean;
   ascending: boolean;
+  unsortable?: boolean;
   onClick(id: string): void;
 }
 
@@ -14,23 +15,34 @@ export default function TableHeader({
   label,
   sorted,
   ascending,
+  unsortable,
   onClick,
 }: TableHeaderProps) {
   return (
     <th className={styles.header}>
-      <div role="button" className={styles.button} onClick={() => onClick(id)}>
-        {label}{" "}
-        <span
-          className={classNames(
-            styles.arrows,
-            sorted && styles.arrowsVisible,
-            ascending ? styles.arrowsAsc : styles.arrowsDesc
-          )}
+      {unsortable && <div className={styles.label}>{label}</div>}
+
+      {!unsortable && (
+        <div
+          role="button"
+          className={styles.button}
+          onClick={() => onClick(id)}
         >
-          <span className={classNames(styles.arrow, styles.arrowUp)}>▴</span>
-          <span className={classNames(styles.arrow, styles.arrowDown)}>▴</span>
-        </span>
-      </div>
+          {label}{" "}
+          <span
+            className={classNames(
+              styles.arrows,
+              sorted && styles.arrowsVisible,
+              ascending ? styles.arrowsAsc : styles.arrowsDesc
+            )}
+          >
+            <span className={classNames(styles.arrow, styles.arrowUp)}>▴</span>
+            <span className={classNames(styles.arrow, styles.arrowDown)}>
+              ▴
+            </span>
+          </span>
+        </div>
+      )}
     </th>
   );
 }

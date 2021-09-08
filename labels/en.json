@@ -22,5 +22,11 @@
   },
   "home": {
     "value": "Home"
+  },
+  "commits": {
+    "value": "🖋 Commits"
+  },
+  "viewAll": {
+    "value": "View All"
   }
 }

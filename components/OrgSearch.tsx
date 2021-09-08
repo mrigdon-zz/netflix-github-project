@@ -33,6 +33,8 @@ export default class OrgSearch extends React.Component<{
         return (repo: Repo) => repo.forks_count;
       case "updated":
         return (repo: Repo) => new Date(repo.updated_at);
+      case "commits":
+        return (repo: Repo) => repo;
     }
   }
 
