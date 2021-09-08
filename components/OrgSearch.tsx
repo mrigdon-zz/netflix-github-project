@@ -1,8 +1,8 @@
 import React from "react";
-import { fetchRepos } from "../api";
+import { fetchRepos } from "../githubAPI";
 import { HomeContext } from "../utils/homeContext";
 import OrgReposTable, { ColumnId } from "./OrgReposTable";
-import Repo from "../api/Repo";
+import Repo from "../githubAPI/Repo";
 import OrgSearchInput from "./OrgSearchInput";
 
 export default class OrgSearch extends React.Component {

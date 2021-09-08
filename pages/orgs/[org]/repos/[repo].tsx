@@ -2,9 +2,9 @@ import { GetServerSideProps, NextPage } from "next";
 import React from "react";
 import Label from "../../../../components/Label";
 import PageLayout from "../../../../components/PageLayout";
-import { APIResponse, fetchCommits } from "../../../../api";
+import { APIResponse, fetchCommits } from "../../../../githubAPI";
 import { Locale } from "../../../../utils/i18n";
-import Commit from "../../../../api/Commit";
+import Commit from "../../../../githubAPI/Commit";
 
 export const RepoDetailContext = React.createContext<{
   org: string;
