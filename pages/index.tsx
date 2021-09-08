@@ -16,6 +16,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <header className={styles.header}>
+        <div className={styles.headerContent}>
+          <img src="/logo.png" alt="Netflix" height={40} />
+        </div>
+      </header>
+
       <main className={styles.container}>
         <h1>Welcome to the Github Org Repo Explorer!</h1>
 
