@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../styles/OrgReposTable.module.css";
 
 export interface Repo {
   id: number;
@@ -10,20 +11,20 @@ export interface Repo {
 export default class OrgSearch extends React.Component<{ repos: Repo[] }> {
   render() {
     return (
-      <table>
+      <table className={styles.table}>
         <thead>
           <tr>
-            <th>Repo</th>
-            <th>Stars</th>
-            <th>Last Updated</th>
+            <th className={styles.cell}>Repo</th>
+            <th className={styles.cell}>Stars</th>
+            <th className={styles.cell}>Last Updated</th>
           </tr>
         </thead>
         <tbody>
           {this.props.repos.map((repo) => (
             <tr key={repo.id}>
-              <td>{repo.name}</td>
-              <td>{repo.stargazers_count}</td>
-              <td>{repo.updated_at}</td>
+              <td className={styles.cell}>{repo.name}</td>
+              <td className={styles.cell}>{repo.stargazers_count}</td>
+              <td className={styles.cell}>{repo.updated_at}</td>
             </tr>
           ))}
         </tbody>
