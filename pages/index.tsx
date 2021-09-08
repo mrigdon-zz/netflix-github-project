@@ -1,61 +1,29 @@
 import { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
 import Label from "../components/Label";
-import LocalePicker from "../components/LocalePicker";
 import OrgSearch from "../components/OrgSearch";
+import PageLayout from "../components/PageLayout";
 import styles from "../styles/Home.module.css";
-import { Locale, LocaleContext } from "../utils/i18n";
+import { Locale } from "../utils/i18n";
 
-const Home: NextPage<{ localeParam: Locale }> = ({ localeParam }) => {
-  const [locale, setLocale] = useState(localeParam);
+const Home: NextPage<{ locale: Locale }> = ({ locale }) => {
   return (
-    <LocaleContext.Provider value={{ locale, setLocale }}>
-      <Head>
-        <title>Github Org Repo Explorer</title>
-        <meta
-          name="description"
-          content="Explore commits for any Github org's repos"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <PageLayout locale={locale}>
+      <h1>
+        <Label name="welcome" />
+      </h1>
 
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.nav}>
-            <img
-              className={styles.logo}
-              src="/logo.png"
-              alt="Netflix"
-              height={40}
-            />
+      <p className={styles.description}>
+        <Label name="searchDescription" />
+      </p>
 
-            <a href="/" className={styles.navLink}>
-              <Label name="home" />
-            </a>
-          </div>
-
-          <LocalePicker />
-        </div>
-      </header>
-
-      <main className={styles.container}>
-        <h1>
-          <Label name="welcome" />
-        </h1>
-
-        <p className={styles.description}>
-          <Label name="searchDescription" />
-        </p>
-
-        <OrgSearch />
-      </main>
-    </LocaleContext.Provider>
+      <OrgSearch />
+    </PageLayout>
   );
 };
 
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => ({
-  props: { localeParam: context.query.locale || "en" },
+  props: { locale: context.query.locale || "en" },
 });
