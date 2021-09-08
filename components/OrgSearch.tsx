@@ -18,21 +18,34 @@ export default class OrgSearch extends React.Component {
     );
   }
 
-  private get sorter() {
+  private get sortTransform() {
     switch (this.state.sortColumn) {
       case "repo":
-        return this.repoSorter;
+        return (repo: Repo) => repo.name.toLowerCase();
       case "stars":
-        return this.starsSorter;
+        return (repo: Repo) => repo.stargazers_count;
       case "forks":
-        return this.forksSorter;
+        return (repo: Repo) => repo.forks_count;
       case "updated":
-        return this.updatedSorter;
+        return (repo: Repo) => new Date(repo.updated_at);
     }
   }
 
   private get sortedRepos(): Repo[] {
-    return this.state.repos.slice().sort(this.sorter);
+    const transform = this.sortTransform;
+
+    return this.state.repos.slice().sort((a, b) => {
+      let result = 0;
+      const valueA = transform(a);
+      const valueB = transform(b);
+
+      if (valueA < valueB) result = 1;
+      else if (valueA > valueB) result = -1;
+
+      if (this.state.sortAscending) result *= -1;
+
+      return result;
+    });
   }
 
   private get sortMultipler() {
@@ -86,31 +99,5 @@ export default class OrgSearch extends React.Component {
     } else {
       this.setState({ sortColumn: id });
     }
-  };
-
-  private repoSorter = (a: Repo, b: Repo) => {
-    return this.sortBy(a, b, (repo) => repo.name.toLowerCase());
-  };
-
-  private starsSorter = (a: Repo, b: Repo) => {
-    return this.sortBy(a, b, (repo) => repo.stargazers_count);
-  };
-
-  private forksSorter = (a: Repo, b: Repo) => {
-    return this.sortBy(a, b, (repo) => repo.forks_count);
-  };
-
-  private updatedSorter = (a: Repo, b: Repo) => {
-    return this.sortBy(a, b, (repo) => new Date(repo.updated_at));
-  };
-
-  private sortBy = (a: Repo, b: Repo, transformer: (repo: Repo) => any) => {
-    const valueA = transformer(a);
-    const valueB = transformer(b);
-
-    if (valueA < valueB) return -this.sortMultipler;
-    if (valueA > valueB) return this.sortMultipler;
-
-    return 0;
   };
 }
