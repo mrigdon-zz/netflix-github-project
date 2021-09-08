@@ -5,7 +5,7 @@ export default function Label({
   attrs,
 }: {
   name: LabelKey;
-  attrs: { [index: string]: string };
+  attrs?: { [index: string]: string };
 }) {
   return (
     <LocaleContext.Consumer>

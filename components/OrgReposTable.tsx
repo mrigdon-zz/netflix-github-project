@@ -70,7 +70,9 @@ export default class OrgSearch extends React.Component<{
               <td className={styles.cell}>{this.timestamp(repo.updated_at)}</td>
 
               <td className={classNames(styles.cell, styles.viewAll)}>
-                <a href={`/repos/${repo.name}?locale=${this.context.locale}`}>
+                <a
+                  href={`/orgs/${'foo'}/repos/${repo.name}?locale=${this.context.locale}`}
+                >
                   <Label name="viewAll" />
                 </a>
               </td>
