@@ -48,10 +48,6 @@ export default class OrgSearch extends React.Component {
     });
   }
 
-  private get sortMultipler() {
-    return this.state.sortAscending ? 1 : -1;
-  }
-
   render() {
     return (
       <>
