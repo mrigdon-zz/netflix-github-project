@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/OrgReposTable.module.css";
 import classNames from "../utils/classNames";
 import { HomeContext } from "../utils/homeContext";
-import { label, LocaleContext } from "../utils/i18n";
+import { label, LocaleContext, timestamp } from "../utils/i18n";
 import Label from "./Label";
 import Repo from "../githubAPI/Repo";
 import TableHeader from "./TableHeader";
@@ -18,15 +18,6 @@ export default function OrgReposTable({
 }) {
   const { locale } = React.useContext(LocaleContext);
   const { params } = React.useContext(HomeContext);
-
-  function timestamp(updatedAt: string) {
-    const date = new Date(updatedAt);
-    const formatter = new Intl.DateTimeFormat(locale, {
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
-    return formatter.format(date);
-  }
 
   function formattedCount(stars: number) {
     const formatter = new Intl.NumberFormat(locale);
@@ -71,7 +62,9 @@ export default function OrgReposTable({
 
             <td className={styles.cell}>{formattedCount(repo.forks_count)}</td>
 
-            <td className={styles.cell}>{timestamp(repo.updated_at)}</td>
+            <td className={styles.cell}>
+              {timestamp(locale, repo.updated_at)}
+            </td>
 
             <td className={classNames(styles.cell, styles.viewAll)}>
               <a

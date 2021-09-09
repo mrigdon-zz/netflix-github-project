@@ -22,6 +22,15 @@ export function label(
   return value;
 }
 
+export function timestamp(locale: Locale, updatedAt: string) {
+  const date = new Date(updatedAt);
+  const formatter = new Intl.DateTimeFormat(locale, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+  return formatter.format(date);
+}
+
 export const LocaleContext = React.createContext({
   locale: "en" as Locale,
   setLocale(_locale: Locale) {},

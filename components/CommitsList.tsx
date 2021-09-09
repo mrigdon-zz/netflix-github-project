@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import Commit from "../githubAPI/Commit";
 import styles from "../styles/CommitsList.module.css";
+import { LocaleContext, timestamp } from "../utils/i18n";
 
 function avatarUrl(commit: Commit) {
   const committer = commit.committer || commit.commit.committer;
@@ -15,6 +17,8 @@ function authorUrl(commit: Commit) {
 }
 
 export default function CommitsList({ commits }: { commits: Commit[] }) {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <div>
       {commits.map((commit) => {
@@ -38,6 +42,8 @@ export default function CommitsList({ commits }: { commits: Commit[] }) {
                   {authorName(commit)}
                 </span>
               )}
+
+              <span>{timestamp(locale, commit.commit.author.date)}</span>
             </p>
           </article>
         );
