@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepoDetail renders the branch select and commits list page 1`] = `
+<PageLayout
+  locale="en"
+>
+  <h1>
+    <Label
+      attrs={
+        Object {
+          "repo": "eureka",
+        }
+      }
+      name="commitsFor"
+    />
+  </h1>
+  <div
+    className="select"
+  >
+    <BranchSelect
+      onSelect={[Function]}
+      org="netflix"
+      repo="eureka"
+      value="main"
+    />
+  </div>
+  <CommitsList
+    commits={Array []}
+  />
+</PageLayout>
+`;
