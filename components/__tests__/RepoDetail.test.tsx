@@ -1,6 +1,6 @@
 import React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
-import RepoDetail from "../orgs/[org]/repos/[repo]";
+import RepoDetail from "../../pages/orgs/[org]/repos/[repo]";
 
 describe("RepoDetail", () => {
   it("renders the branch select and commits list page", () => {

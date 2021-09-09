@@ -1,6 +1,6 @@
 import React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
-import Home from "..";
+import Home from "../../pages";
 
 describe("Home", () => {
   it("renders home", () => {
