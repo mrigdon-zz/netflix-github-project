@@ -45,7 +45,9 @@ exports[`OrgReposTable renders the repos 1`] = `
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr
+      className="row"
+    >
       <td
         className="cell"
       >

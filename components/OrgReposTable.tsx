@@ -49,7 +49,7 @@ export default function OrgReposTable({
 
       <tbody>
         {repos.map((repo) => (
-          <tr key={repo.id}>
+          <tr key={repo.id} className={styles.row}>
             <td className={styles.cell}>
               <a href={repo.html_url} target="_blank" rel="noopener">
                 {repo.name}
