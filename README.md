@@ -2,11 +2,7 @@
 
 A simple UI that allows you to browse repos for a Github org, and commits for each repo
 
-
-
-https://user-images.githubusercontent.com/7377110/132727099-df87ea7f-c129-42b6-bb94-cf4724402e36.mov
-
-
+https://user-images.githubusercontent.com/7377110/132727260-908ac8e2-d613-4346-b7a7-a1516198d3ce.mov
 
 ## Running the App
 
