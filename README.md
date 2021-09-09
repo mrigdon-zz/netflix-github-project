@@ -6,6 +6,11 @@ https://user-images.githubusercontent.com/7377110/132727260-908ac8e2-d613-4346-b
 
 ## Running the App
 
+### Prerequisites
+
+- NodeJS (recommend `v14.15.4`)
+- Yarn (recommend `v1.22.10`)
+
 ### Production Mode
 
 ```bash
