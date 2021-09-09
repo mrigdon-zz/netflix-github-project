@@ -8,8 +8,8 @@ export interface RepoDetailParams {
 
 export const RepoDetailContext = React.createContext<{
   params: RepoDetailParams;
-  setParams: (params: RepoDetailParams) => void;
+  // setParams: (params: RepoDetailParams) => void;
 }>({
   params: { org: "", repo: "", branch: "" },
-  setParams(_: RepoDetailParams) {},
+  // setParams(_: RepoDetailParams) {},
 });

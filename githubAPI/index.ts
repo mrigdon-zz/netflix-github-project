@@ -10,7 +10,7 @@ async function githubFetch<T>(endpoint: string): Promise<APIResponse<T>> {
   const res = await fetch(`${baseUrl}/${endpoint}`, {
     headers: {
       Accept: "application/vnd.github.v3+json",
-      Authorization: `Basic bXJpZ2RvbjpnaHBfbERtRmw5bmZIbnhEd0w3YUxyeVEyell2V3RYQnNxMUpSMkxTCg==`,
+      // Authorization: `Basic bXJpZ2RvbjpnaHBfbERtRmw5bmZIbnhEd0w3YUxyeVEyell2V3RYQnNxMUpSMkxTCg==`,
     },
   });
   const json = await res.json();
@@ -29,6 +29,6 @@ export function fetchBranches(org: string, repo: string) {
   return githubFetch<Branch[]>(`repos/${org}/${repo}/branches`);
 }
 
-export function fetchCommits(org: string, repo: string) {
-  return githubFetch<Commit[]>(`repos/${org}/${repo}/commits`);
+export function fetchCommits(org: string, repo: string, branch: string) {
+  return githubFetch<Commit[]>(`repos/${org}/${repo}/commits?branch=${branch}`);
 }

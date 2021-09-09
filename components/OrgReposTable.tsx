@@ -9,7 +9,7 @@ import TableHeader from "./TableHeader";
 
 export type ColumnId = "repo" | "stars" | "forks" | "updated" | "commits";
 
-export default function OrgSearch({
+export default function OrgReposTable({
   repos,
   onClick,
 }: {

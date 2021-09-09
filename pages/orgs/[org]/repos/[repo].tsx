@@ -1,8 +1,8 @@
-import { GetServerSideProps, NextPage } from "next";
-import React, { useState } from "react";
+import { GetServerSideProps } from "next";
+import React from "react";
 import Label from "../../../../components/Label";
 import PageLayout from "../../../../components/PageLayout";
-import { fetchRepo } from "../../../../githubAPI";
+import { fetchCommits, fetchRepo } from "../../../../githubAPI";
 import { Locale } from "../../../../utils/i18n";
 import { setParam } from "../../../../utils/urlParams";
 import BranchSelect from "../../../../components/BranchSelect";
@@ -11,34 +11,60 @@ import {
   RepoDetailParams,
 } from "../../../../utils/repoDetailContext";
 import styles from "../../../../styles/RepoDetail.module.css";
+import Commit from "../../../../githubAPI/Commit";
+import CommitsList from "../../../../components/CommitsList";
 
-const RepoDetail: NextPage<{
+export default class RepoDetail extends React.Component<{
   locale: Locale;
+  branch: string;
   params: RepoDetailParams;
-}> = ({ locale, params }) => {
-  const [state, setState] = useState(params);
+}> {
+  state = { branch: this.props.branch, commits: [] as Commit[] };
 
-  const setParams = (detailParams: RepoDetailParams) => {
-    setState({ ...state, ...detailParams });
-    setParam("branch", detailParams.branch);
+  private setParams = (params: Partial<RepoDetailParams>) => {
+    this.setState(params);
+    setParam("branch", params.branch);
   };
 
-  return (
-    <RepoDetailContext.Provider value={{ params: state, setParams }}>
-      <PageLayout locale={locale}>
-        <h1>
-          <Label name="commitsFor" attrs={{ repo: params.repo }}></Label>
-        </h1>
+  private handleSelectBranch = (branch: string) => this.setParams({ branch });
 
-        <div className={styles.select}>
-          <BranchSelect />
-        </div>
-      </PageLayout>
-    </RepoDetailContext.Provider>
-  );
-};
+  private fetchCommits = async () => {
+    const { data } = await fetchCommits(
+      this.props.params.org,
+      this.props.params.repo,
+      this.props.branch
+    );
+    this.setState({ commits: data });
+  };
 
-export default RepoDetail;
+  componentDidMount() {
+    this.fetchCommits();
+  }
+
+  render() {
+    return (
+      <RepoDetailContext.Provider value={{ params: this.props.params }}>
+        <PageLayout locale={this.props.locale}>
+          <h1>
+            <Label
+              name="commitsFor"
+              attrs={{ repo: this.props.params.repo }}
+            ></Label>
+          </h1>
+
+          <div className={styles.select}>
+            <BranchSelect
+              value={this.state.branch}
+              onSelect={this.handleSelectBranch}
+            />
+          </div>
+
+          <CommitsList commits={this.state.commits} />
+        </PageLayout>
+      </RepoDetailContext.Provider>
+    );
+  }
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { org, repo, branch } = context.query;
@@ -48,11 +74,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       locale: context.query.locale || "en",
-      params: {
-        org,
-        repo,
-        branch: branch || data?.default_branch || "",
-      },
+      branch: branch || data?.default_branch || "",
+      params: { org, repo },
     },
   };
 };

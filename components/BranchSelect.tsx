@@ -3,10 +3,13 @@ import { fetchBranches } from "../githubAPI";
 import Branch from "../githubAPI/Branch";
 import { RepoDetailContext } from "../utils/repoDetailContext";
 
-export default class BranchSelect extends React.Component {
+export default class BranchSelect extends React.Component<{
+  value: string;
+  onSelect: (name: string) => void;
+}> {
   static contextType = RepoDetailContext;
 
-  state = { branches: [{ name: this.context.params.branch }] as Branch[] };
+  state = { branches: [{ name: this.props.value }] as Branch[] };
 
   componentDidMount() {
     this.fetchBranches();
@@ -24,8 +27,8 @@ export default class BranchSelect extends React.Component {
   render() {
     return (
       <select
-        value={this.context.params.branch}
-        onChange={(e) => this.context.setParams({ branch: e.target.value })}
+        value={this.props.value}
+        onChange={(e) => this.props.onSelect(e.target.value)}
       >
         {this.state.branches.map((branch) => (
           <option key={branch.name} value={branch.name}>
