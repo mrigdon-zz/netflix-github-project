@@ -2,6 +2,12 @@
 
 A simple UI that allows you to browse repos for a Github org, and commits for each repo
 
+
+
+https://user-images.githubusercontent.com/7377110/132727099-df87ea7f-c129-42b6-bb94-cf4724402e36.mov
+
+
+
 ## Running the App
 
 ### Production Mode
