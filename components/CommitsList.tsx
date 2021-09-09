@@ -26,7 +26,16 @@ export default function CommitsList({ commits }: { commits: Commit[] }) {
 
         return (
           <article className={styles.commit} key={commit.sha}>
-            <h2 className={styles.message}>{commit.commit.message}</h2>
+            <h2 className={styles.message}>
+              <a
+                className={styles.commitLink}
+                href={commit.html_url}
+                target="_blank"
+                rel="noopener"
+              >
+                {commit.commit.message}
+              </a>
+            </h2>
 
             <p className={styles.committer}>
               <img className={styles.avatar} src={avatarUrl(commit)} alt="" />

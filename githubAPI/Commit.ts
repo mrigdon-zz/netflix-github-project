@@ -4,6 +4,7 @@ interface Commiter {
 
 export default interface Commit {
   sha: string;
+  html_url: string;
   commit: {
     message: string;
     committer: Commiter;
