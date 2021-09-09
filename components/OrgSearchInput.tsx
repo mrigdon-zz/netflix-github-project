@@ -21,18 +21,9 @@ export default class OrgSearchInput extends React.Component<{
   loading?: boolean;
   onSearch(text: string): void;
 }> {
-  static contextType = LocaleContext;
-
   state = { exampleIndex: 0, searchText: this.props.search };
 
   private intervalId?: NodeJS.Timer;
-
-  private get placeholder() {
-    return label(this.context.locale, "searchForOrgs", {
-      example: examples[this.state.exampleIndex],
-      className: styles.example,
-    });
-  }
 
   componentDidMount() {
     this.setExampleInterval();
@@ -44,23 +35,31 @@ export default class OrgSearchInput extends React.Component<{
   }
 
   render() {
-    const { placeholder } = this;
     return (
-      <div className={styles.inputContainer}>
-        <input
-          aria-label={placeholder}
-          className={styles.input}
-          value={this.state.searchText}
-          onChange={this.handleChangeSearch}
-        />
+      <LocaleContext.Consumer>
+        {({ locale }) => {
+          const placeholder = label(locale, "searchForOrgs", {
+            example: examples[this.state.exampleIndex],
+            className: styles.example,
+          });
+          return (
+            <div className={styles.inputContainer}>
+              <input
+                className={styles.input}
+                value={this.state.searchText}
+                onChange={this.handleChangeSearch}
+              />
 
-        <span
-          className={styles.placeholder}
-          dangerouslySetInnerHTML={{ __html: placeholder }}
-        ></span>
+              <span
+                className={styles.placeholder}
+                dangerouslySetInnerHTML={{ __html: placeholder }}
+              ></span>
 
-        {this.props.loading && <span className={styles.spinner}>⚙︎</span>}
-      </div>
+              {this.props.loading && <span className={styles.spinner}>⚙︎</span>}
+            </div>
+          );
+        }}
+      </LocaleContext.Consumer>
     );
   }
 

@@ -57,6 +57,8 @@ export default class RepoDetail extends React.Component<{
 
           <div className={styles.select}>
             <BranchSelect
+              org={this.props.params.org}
+              repo={this.props.params.repo}
               value={this.state.branch}
               onSelect={this.handleSelectBranch}
             />

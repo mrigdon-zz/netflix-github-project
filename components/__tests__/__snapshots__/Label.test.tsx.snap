@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label renders the localized label with the attrs: english 1`] = `"Commits for eureka"`;
+
+exports[`Label renders the localized label with the attrs: spanish 1`] = `"Compromisos para eureka"`;
