@@ -16,7 +16,12 @@ export default class RepoDetail extends React.Component<{
   org: string;
   repo: string;
 }> {
-  state = { branch: this.props.branch, commits: [] as Commit[] };
+  state = {
+    branch: this.props.branch,
+    commits: [] as Commit[],
+    loadingMore: false,
+    page: 1,
+  };
 
   private handleSelectBranch = (branch: string) => {
     this.setState({ branch });
@@ -31,6 +36,24 @@ export default class RepoDetail extends React.Component<{
       branch
     );
     this.setState({ commits: data });
+  };
+
+  private handleViewMore = async () => {
+    this.setState({ loadingMore: true });
+
+    const page = this.state.page + 1;
+    const { data } = await fetchCommits(
+      this.props.org,
+      this.props.repo,
+      this.state.branch,
+      page
+    );
+
+    this.setState({
+      commits: this.state.commits.concat(data || []),
+      page,
+      loadingMore: false,
+    });
   };
 
   componentDidMount() {
@@ -54,6 +77,17 @@ export default class RepoDetail extends React.Component<{
         </div>
 
         <CommitsList commits={this.state.commits} />
+
+        {this.state.commits.length > 0 && (
+          <div className={styles.viewMore}>
+            <button
+              disabled={this.state.loadingMore}
+              onClick={this.handleViewMore}
+            >
+              <Label name="viewMore" />
+            </button>
+          </div>
+        )}
       </PageLayout>
     );
   }

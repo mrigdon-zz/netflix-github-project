@@ -76,7 +76,7 @@ describe("fetchCommits", () => {
       data: ["commit1"],
     });
     expect(fetch).toHaveBeenCalledWith(
-      "https://api.github.com/repos/netflix/eureka/commits?sha=main",
+      "https://api.github.com/repos/netflix/eureka/commits?sha=main&page=1",
       { headers: { Accept: "application/vnd.github.v3+json" } }
     );
   });
