@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeContext provides context to the consumer: after changing 1`] = `
+<div>
+  <button
+    onClick={[Function]}
+  >
+    change stuff
+  </button>
+  {
+  "search": "foo",
+  "ascending": true,
+  "column": "updated"
+}
+</div>
+`;
+
+exports[`HomeContext provides context to the consumer: before changing 1`] = `
+<div>
+  <button
+    onClick={[Function]}
+  >
+    change stuff
+  </button>
+  {
+  "search": "",
+  "ascending": false,
+  "column": "stars"
+}
+</div>
+`;
