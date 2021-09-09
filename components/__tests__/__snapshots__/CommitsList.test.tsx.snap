@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommitsList renders the commits 1`] = `
+<div>
+  <article
+    className="commit"
+  >
+    <h2
+      className="message"
+    >
+      <a
+        className="commitLink"
+        href="https://github.com/netflix/eureka/commits/12345"
+        rel="noopener"
+        target="_blank"
+      >
+        Merged PR #42
+      </a>
+    </h2>
+    <p
+      className="committer"
+    >
+      <img
+        alt=""
+        className="avatar"
+        src="/avatar.jpg"
+      />
+      <span
+        className="committerLink"
+      >
+        Joe Smith
+      </span>
+      <span>
+        Sep 9, 2021, 7:57 AM
+      </span>
+    </p>
+  </article>
+</div>
+`;

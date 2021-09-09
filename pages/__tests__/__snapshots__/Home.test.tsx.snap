@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders home 1`] = `
+<Context.Provider
+  value={
+    Object {
+      "params": Object {
+        "ascending": false,
+        "column": "stars",
+        "search": "",
+      },
+      "setParams": [Function],
+    }
+  }
+>
+  <PageLayout
+    locale="en"
+  >
+    <h1>
+      <Label
+        name="welcome"
+      />
+    </h1>
+    <p
+      className="description"
+    >
+      <Label
+        name="searchDescription"
+      />
+    </p>
+    <OrgSearch />
+  </PageLayout>
+</Context.Provider>
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrgSearchInput renders the input with a new example every 3 seconds: after 3 seconds 1`] = `
+<div
+  className="inputContainer"
+>
+  <input
+    className="input"
+    onChange={[Function]}
+    value=""
+  />
+  <span
+    className="placeholder"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "🔍 Enter a Github org name like <span class=\\"example\\">facebook</span>",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`OrgSearchInput renders the input with a new example every 3 seconds: before 3 seconds 1`] = `
+<div
+  className="inputContainer"
+>
+  <input
+    className="input"
+    onChange={[Function]}
+    value=""
+  />
+  <span
+    className="placeholder"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "🔍 Enter a Github org name like <span class=\\"example\\">netflix</span>",
+      }
+    }
+  />
+</div>
+`;

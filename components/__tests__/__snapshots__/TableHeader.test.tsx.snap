@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableHeader ascending 1`] = `
+<th
+  className="header"
+>
+  <div
+    className="button"
+    onClick={[Function]}
+    role="button"
+  >
+    Test
+     
+    <span
+      className="arrows arrowsVisible arrowsAsc"
+    >
+      <span
+        className="arrow arrowUp"
+      >
+        ▴
+      </span>
+      <span
+        className="arrow arrowDown"
+      >
+        ▴
+      </span>
+    </span>
+  </div>
+</th>
+`;
+
+exports[`TableHeader sorted 1`] = `
+<th
+  className="header"
+>
+  <div
+    className="button"
+    onClick={[Function]}
+    role="button"
+  >
+    Test
+     
+    <span
+      className="arrows arrowsVisible arrowsDesc"
+    >
+      <span
+        className="arrow arrowUp"
+      >
+        ▴
+      </span>
+      <span
+        className="arrow arrowDown"
+      >
+        ▴
+      </span>
+    </span>
+  </div>
+</th>
+`;
+
+exports[`TableHeader unsortable 1`] = `
+<th
+  className="header"
+>
+  <div
+    className="label"
+  >
+    Test
+  </div>
+</th>
+`;
+
+exports[`TableHeader unsorted 1`] = `
+<th
+  className="header"
+>
+  <div
+    className="button"
+    onClick={[Function]}
+    role="button"
+  >
+    Test
+     
+    <span
+      className="arrows arrowsDesc"
+    >
+      <span
+        className="arrow arrowUp"
+      >
+        ▴
+      </span>
+      <span
+        className="arrow arrowDown"
+      >
+        ▴
+      </span>
+    </span>
+  </div>
+</th>
+`;

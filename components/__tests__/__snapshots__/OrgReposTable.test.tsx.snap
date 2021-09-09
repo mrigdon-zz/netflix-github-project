@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrgReposTable renders the repos 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <TableHeader
+        ascending={false}
+        id="repo"
+        label="📦 Repo"
+        onClick={[MockFunction]}
+        sorted={false}
+      />
+      <TableHeader
+        ascending={false}
+        id="stars"
+        label="⭐️ Stars"
+        onClick={[MockFunction]}
+        sorted={true}
+      />
+      <TableHeader
+        ascending={false}
+        id="forks"
+        label="🍴 Forks"
+        onClick={[MockFunction]}
+        sorted={false}
+      />
+      <TableHeader
+        ascending={false}
+        id="updated"
+        label="✍️ Last Updated"
+        onClick={[MockFunction]}
+        sorted={false}
+      />
+      <TableHeader
+        ascending={false}
+        id="commits"
+        label="🖋 Commits"
+        onClick={[MockFunction]}
+        sorted={false}
+        unsortable={true}
+      />
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className="cell"
+      >
+        <a
+          href="https://github.com/netflix/eureka"
+          rel="noopener"
+          target="_blank"
+        >
+          eureka
+        </a>
+      </td>
+      <td
+        className="cell"
+      >
+        42,000
+      </td>
+      <td
+        className="cell"
+      >
+        2,400
+      </td>
+      <td
+        className="cell"
+      >
+        Sep 9, 2021, 8:18 AM
+      </td>
+      <td
+        className="cell viewAll"
+      >
+        <a
+          href="/orgs//repos/eureka?locale=en"
+        >
+          <Label
+            name="viewAll"
+          />
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

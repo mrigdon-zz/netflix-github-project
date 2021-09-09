@@ -1,41 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { fetchBranches } from "../githubAPI";
 import Branch from "../githubAPI/Branch";
-import { RepoDetailContext } from "../utils/repoDetailContext";
 
-export default class BranchSelect extends React.Component<{
+export default function BranchSelect(props: {
+  org: string;
+  repo: string;
   value: string;
   onSelect: (name: string) => void;
-}> {
-  static contextType = RepoDetailContext;
+}) {
+  const [branches, setBranches] = useState([{ name: props.value }] as Branch[]);
 
-  state = { branches: [{ name: this.props.value }] as Branch[] };
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await fetchBranches(props.org, props.repo);
+      if (data) setBranches(data);
+    }
+    fetchData();
+  }, []);
 
-  componentDidMount() {
-    this.fetchBranches();
-  }
-
-  private async fetchBranches() {
-    const { data } = await fetchBranches(
-      this.context.params.org,
-      this.context.params.repo
-    );
-
-    this.setState({ branches: data });
-  }
-
-  render() {
-    return (
-      <select
-        value={this.props.value}
-        onChange={(e) => this.props.onSelect(e.target.value)}
-      >
-        {this.state.branches.map((branch) => (
-          <option key={branch.name} value={branch.name}>
-            {branch.name}
-          </option>
-        ))}
-      </select>
-    );
-  }
+  return (
+    <select
+      value={props.value}
+      onChange={(e) => props.onSelect(e.target.value)}
+    >
+      {branches.map((branch) => (
+        <option key={branch.name} value={branch.name}>
+          {branch.name}
+        </option>
+      ))}
+    </select>
+  );
 }

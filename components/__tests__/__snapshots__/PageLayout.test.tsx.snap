@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageLayout renders the page 1`] = `
+<Context.Provider
+  value={
+    Object {
+      "locale": "en",
+      "setLocale": [Function],
+    }
+  }
+>
+  <Head>
+    <title>
+      Github Org Repo Explorer
+    </title>
+    <link
+      href="/favicon.ico"
+      rel="icon"
+    />
+  </Head>
+  <header
+    className="header"
+  >
+    <div
+      className="headerContent"
+    >
+      <div
+        className="nav"
+      >
+        <img
+          alt="Netflix"
+          className="logo"
+          height={40}
+          src="/logo.png"
+        />
+        <a
+          className="navLink"
+          href="/"
+        >
+          <Label
+            name="home"
+          />
+        </a>
+      </div>
+      <LocalePicker />
+    </div>
+  </header>
+  <main
+    className="container"
+  >
+    hello
+  </main>
+</Context.Provider>
+`;
