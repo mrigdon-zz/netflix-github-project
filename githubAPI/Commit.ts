@@ -8,7 +8,7 @@ export default interface Commit {
   commit: {
     message: string;
     committer: Commiter;
-    author: { name: string };
+    author: { name: string; date: string };
   };
   committer?: Commiter;
   author?: { login: string; html_url: string };
