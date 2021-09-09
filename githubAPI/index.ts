@@ -10,7 +10,6 @@ async function githubFetch<T>(endpoint: string): Promise<APIResponse<T>> {
   const res = await fetch(`${baseUrl}/${endpoint}`, {
     headers: {
       Accept: "application/vnd.github.v3+json",
-      // Authorization: `Basic bXJpZ2RvbjpnaHBfbERtRmw5bmZIbnhEd0w3YUxyeVEyell2V3RYQnNxMUpSMkxTCg==`,
     },
   });
   const json = await res.json();
