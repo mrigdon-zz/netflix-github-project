@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Github Org Repo Explorer
 
-## Getting Started
+A simple UI that allows you to browse repos for a Github org, and commits for each repo
 
-First, run the development server:
+## Running the App
+
+### Production Mode
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn install
+yarn build --no-lint
+yarn start
+open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development Mode
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn install
+yarn dev
+open http://localhost:3000
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Running the Test Suite
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+yarn test
+```
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Tool                  | Purpose                       |
+| --------------------- | ----------------------------- |
+| Typescript            | Programming Language          |
+| React                 | UI Component Framework        |
+| NextJS                | Web Application Framework     |
+| Github REST API       | Data Source                   |
+| Jest                  | Unit Test Framework           |
+| React Test Renderer   | Snapshot (Regression) Testing |
+| React Testing Library | Component Behavioral Testing  |
+| Mock Service Worker   | API Stubbing                  |
+| CSS Modules           | Styling/CSS Organization      |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Internationalization (I18n)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- This project is internationalized. When running the application, switch the language to Spanish and the UI text will update accordingly.
+- The labels are stored in the `labels/` directory
+- The translations are from Google translate; apologies if the Spanish is not a 1:1 translation in some cases
