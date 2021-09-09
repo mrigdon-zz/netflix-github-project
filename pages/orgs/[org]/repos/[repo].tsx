@@ -26,19 +26,22 @@ export default class RepoDetail extends React.Component<{
     setParam("branch", params.branch);
   };
 
-  private handleSelectBranch = (branch: string) => this.setParams({ branch });
+  private handleSelectBranch = (branch: string) => {
+    this.setParams({ branch });
+    this.fetchCommits(branch);
+  };
 
-  private fetchCommits = async () => {
+  private fetchCommits = async (branch: string) => {
     const { data } = await fetchCommits(
       this.props.params.org,
       this.props.params.repo,
-      this.props.branch
+      branch
     );
     this.setState({ commits: data });
   };
 
   componentDidMount() {
-    this.fetchCommits();
+    this.fetchCommits(this.state.branch);
   }
 
   render() {

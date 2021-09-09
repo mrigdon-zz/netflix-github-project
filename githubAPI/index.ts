@@ -30,5 +30,5 @@ export function fetchBranches(org: string, repo: string) {
 }
 
 export function fetchCommits(org: string, repo: string, branch: string) {
-  return githubFetch<Commit[]>(`repos/${org}/${repo}/commits?branch=${branch}`);
+  return githubFetch<Commit[]>(`repos/${org}/${repo}/commits?sha=${branch}`);
 }
